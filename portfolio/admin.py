@@ -4,7 +4,7 @@ from django.contrib.admin import AdminSite
 from django.contrib.auth.models import User, Group
 from django.contrib.auth.admin import UserAdmin, GroupAdmin
 
-from portfolio.models import Hobi, JenisKelamin, Pengalaman, Project, Pendidikan
+from portfolio.models import Hobi, JenisKelamin, Pengalaman, Project, Pendidikan, Skill
 
 # Custom AdminSite
 class MyAdminSite(AdminSite):
@@ -62,7 +62,7 @@ class PengalamanAdmin(admin.ModelAdmin):
         return "Deleted" if obj.deleted_at else "Active"
 
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ['project', 'deskripsi', 'gambar_tag', 'link', 'created_at']
+    list_display = ['project', 'deskripsi', 'gambar_tag', 'link', 'created_at', 'deleted_at_display', 'status']
     search_fields = ['project', 'deskripsi', 'link']
     list_filter = ['created_at']
     ordering = ['project', 'deskripsi', 'link', 'created_at']
@@ -74,12 +74,47 @@ class ProjectAdmin(admin.ModelAdmin):
         return "-"
     gambar_tag.short_description = 'Gambar'
 
+    def deleted_at_display(self, obj):
+        return obj.deleted_at or "-"
+    deleted_at_display.short_description = 'Deleted At'
+
+    def status(self, obj):
+        return "Deleted" if obj.deleted_at else "Active"
+
 class PendidikanAdmin(admin.ModelAdmin):
-    list_display = ['pendidikan', 'tahun_lulus', 'created_at']
+    list_display = ['pendidikan', 'tahun_lulus', 'created_at', 'deleted_at_display', 'status']
     search_fields = ['pendidikan']
     list_filter = ['created_at']
     ordering = ['pendidikan']
     fields = ['pendidikan', 'tahun_lulus']
+
+    def deleted_at_display(self, obj):
+        return obj.deleted_at or "-"
+    deleted_at_display.short_description = 'Deleted At'
+
+    def status(self, obj):
+        return "Deleted" if obj.deleted_at else "Active"
+
+class SkillAdmin(admin.ModelAdmin):
+    list_display = ['skill', 'gambar_tag',  'created_at', 'deleted_at_display', 'status']
+    search_fields = ['skill']
+    list_filter = ['created_at']
+    ordering = ['skill', 'created_at']
+    fields = ['skill', 'gambar']
+
+    def deleted_at_display(self, obj):
+        return obj.deleted_at or "-"
+    deleted_at_display.short_description = 'Deleted At'
+
+    def status(self, obj):
+        return "Deleted" if obj.deleted_at else "Active"
+
+    def gambar_tag(self, obj):
+        if obj.gambar:
+            return format_html('<a href="{}"><img src="{}" width="60" style="border-radius: 50%" height="auto" /></a>', obj.gambar.url, obj.gambar.url) # format_html('<img src="{}" width="100" height="auto" />', obj.gambar.url)
+        return "-"
+    gambar_tag.short_description = 'Gambar'
+
 
 # Register models to custom admin site
 admin_site.register(Hobi, HobiAdmin)
@@ -89,3 +124,4 @@ admin_site.register(Project, ProjectAdmin)
 admin_site.register(Pendidikan, PendidikanAdmin)
 admin_site.register(User, UserAdmin)
 admin_site.register(Group, GroupAdmin)
+admin_site.register(Skill, SkillAdmin)

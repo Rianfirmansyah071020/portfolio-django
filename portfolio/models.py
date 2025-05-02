@@ -64,6 +64,7 @@ class Pengalaman(models.Model):
 
 class Skill(models.Model):
     skill = models.CharField(max_length=50)
+    gambar = models.ImageField(upload_to='media/images/', null=True)
     created_at = models.DateTimeField(auto_now_add=True)  # Diisi saat pertama kali dibuat
     updated_at = models.DateTimeField(auto_now=True)      # Diisi setiap kali di-update
     deleted_at = models.DateTimeField(null=True, blank=True)  # Diisi hanya saat soft delete
