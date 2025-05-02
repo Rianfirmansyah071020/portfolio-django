@@ -24,8 +24,9 @@ from portfolio.admin import admin_site  # import your custom admin site
 urlpatterns = [
       path('admin/', admin_site.urls),  # Use custom admin site
       path('export-pdf-skills/', views.export_skills_pdf, name='export_pdf_skills'),
-]
+
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # Tambahkan ini hanya saat DEBUG = True
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# if settings.DEBUG:
+#     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

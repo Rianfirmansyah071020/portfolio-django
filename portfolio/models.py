@@ -1,6 +1,7 @@
 from django.db import models
 from numpy import delete
 from django.utils import timezone
+from ckeditor.fields import RichTextField
 
 
 # Create your models here.
@@ -131,7 +132,9 @@ class Profil(models.Model):
     alamat = models.TextField(null=True, blank=True)
     email = models.EmailField(null=True, blank=True)
     no_hp = models.CharField(max_length=15, null=True, blank=True)
-    deskripsi = models.TextField(null=True, blank=True)
+    # menggunakan richtextfield teksteditor
+    deskripsi = RichTextField()
+    # deskripsi = models.TextField(null=True, blank=True)
     gambar = models.ImageField(upload_to='media/images/')
     created_at = models.DateTimeField(auto_now_add=True)  # Diisi saat pertama kali dibuat
     updated_at = models.DateTimeField(auto_now=True)      # Diisi setiap kali di-update
