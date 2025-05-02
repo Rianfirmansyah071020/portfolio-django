@@ -66,7 +66,7 @@ class PengalamanAdmin(admin.ModelAdmin):
 
 class ProjectImageInline(admin.TabularInline):  # atau StackedInline
     model = ProjectImage
-    extra = 1  # jumlah form kosong awal
+    extra = 2  # jumlah form kosong awal
     max_num = None  # tanpa batas
     fields = ['image']
     show_change_link = True
@@ -134,7 +134,7 @@ class SkillAdmin(admin.ModelAdmin):
         if obj.gambar:
             return format_html(
                 '<a href="{}" target="_blank">'
-                '<img src="{}" width="50" style=" border: 3px solid blue;" height="auto" />'
+                '<img src="{}" width="50"  height="auto" />'
                 '</a>',
                 obj.gambar.url, obj.gambar.url
             )
@@ -147,7 +147,8 @@ class SosialMediaAdmin(admin.ModelAdmin):
     search_fields = ['sosial_media', 'link']
     list_filter = ['created_at']
     ordering = ['sosial_media', 'link', 'created_at']
-    fields = ['sosial_media', 'link', 'gambar']
+    fields = ['sosial_media', 'link', 'gambar_tag']
+    readonly_fields = ['gambar_tag']
     list_per_page = 10
 
     def deleted_at_display(self, obj):
@@ -159,7 +160,7 @@ class SosialMediaAdmin(admin.ModelAdmin):
 
     def gambar_tag(self, obj):
         if obj.gambar:
-            return format_html('<a href="{}" target="_blank"><img src="{}" width="70" style=" border: 3px solid blue;" height="auto" /></a>', obj.gambar.url, obj.gambar.url) # format_html('<img src="{}" width="100" height="auto" />', obj.gambar.url)
+            return format_html('<a href="{}" target="_blank"><img src="{}" width="70"  height="auto" /></a>', obj.gambar.url, obj.gambar.url) # format_html('<img src="{}" width="100" height="auto" />', obj.gambar.url)
         return "-"
     gambar_tag.short_description = 'Gambar'
 
