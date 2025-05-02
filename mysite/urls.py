@@ -25,6 +25,7 @@ urlpatterns = [
       path('admin/', admin_site.urls),  # Use custom admin site
       path('export-pdf-skills/', views.export_skills_pdf, name='export_pdf_skills'),
 
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # Tambahkan ini hanya saat DEBUG = True

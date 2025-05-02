@@ -63,6 +63,10 @@ CKEDITOR_CONFIGS = {
         'toolbar': 'full',
         'height': 300,
         'width': '100%',
+        'extraPlugins': 'codesnippet',
+        'toolbarCanCollapse': True,
+        'skin': 'moono-lisa',
+        'extraPlugins': 'codesnippet',
     },
 }
 
