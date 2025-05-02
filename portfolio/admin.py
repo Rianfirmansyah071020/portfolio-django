@@ -52,7 +52,7 @@ class JenisKelaminAdmin(admin.ModelAdmin):
 class PengalamanAdmin(admin.ModelAdmin):
     list_display = ['pengalaman', 'tanggal_mulai', 'tanggal_selesai', 'created_at', 'deleted_at_display', 'status']
     search_fields = ['pengalaman']
-    list_filter = ['created_at']
+    list_filter = ['created_at', 'tanggal_mulai', 'tanggal_selesai']
     ordering = ['pengalaman']
     fields = ['pengalaman', 'tanggal_mulai', 'tanggal_selesai']
     list_per_page = 10
