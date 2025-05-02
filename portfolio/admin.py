@@ -23,9 +23,9 @@ class HobiAdmin(admin.ModelAdmin):
     list_display = ['hobi', 'created_at', 'deleted_at_display', 'status']
     search_fields = ['hobi']
     list_filter = ['created_at']
-    ordering = ['hobi', 'created_at', 'deleted_at']
+    # ordering = ['hobi', 'created_at', 'deleted_at']
     fields = ['hobi']
-    list_per_page = 10
+    # list_per_page = 10
 
     def deleted_at_display(self, obj):
         return obj.deleted_at or "-"
@@ -38,9 +38,9 @@ class JenisKelaminAdmin(admin.ModelAdmin):
     list_display = ['jenis_kelamin', 'created_at', 'deleted_at_display', 'status']
     search_fields = ['jenis_kelamin']
     list_filter = ['created_at']
-    ordering = ['jenis_kelamin', 'created_at', 'deleted_at']
+    # ordering = ['jenis_kelamin', 'created_at', 'deleted_at']
     fields = ['jenis_kelamin']
-    list_per_page = 10
+    # list_per_page = 10
 
     def deleted_at_display(self, obj):
         return obj.deleted_at or "-"
@@ -53,9 +53,9 @@ class PengalamanAdmin(admin.ModelAdmin):
     list_display = ['pengalaman', 'tanggal_mulai', 'tanggal_selesai', 'created_at', 'deleted_at_display', 'status']
     search_fields = ['pengalaman']
     list_filter = ['created_at', 'tanggal_mulai', 'tanggal_selesai']
-    ordering = ['pengalaman']
+    # ordering = ['pengalaman']
     fields = ['pengalaman', 'tanggal_mulai', 'tanggal_selesai']
-    list_per_page = 10
+    # list_per_page = 10
 
     def deleted_at_display(self, obj):
         return obj.deleted_at or "-"
@@ -76,10 +76,10 @@ class ProjectAdmin(admin.ModelAdmin):
     list_display = ['project', 'deskripsi', 'link', 'created_at', 'deleted_at_display', 'status']
     search_fields = ['project', 'deskripsi', 'link']
     list_filter = ['created_at']
-    ordering = ['project', 'deskripsi', 'link', 'created_at']
+    # ordering = ['project', 'deskripsi', 'link', 'created_at']
     fields = ['project', 'deskripsi', 'link', 'display_images']  # tampilkan di halaman detail
     readonly_fields = ['display_images']  # agar tidak bisa diubah langsung
-    list_per_page = 10
+    # list_per_page = 10
     inlines = [ProjectImageInline]
 
     def deleted_at_display(self, obj):
@@ -103,9 +103,9 @@ class PendidikanAdmin(admin.ModelAdmin):
     list_display = ['pendidikan', 'tahun_lulus', 'created_at', 'deleted_at_display', 'status']
     search_fields = ['pendidikan']
     list_filter = ['created_at']
-    ordering = ['pendidikan']
+    # ordering = ['pendidikan']
     fields = ['pendidikan', 'tahun_lulus']
-    list_per_page = 10
+    # list_per_page = 10
 
     def deleted_at_display(self, obj):
         return obj.deleted_at or "-"
@@ -120,10 +120,10 @@ class SkillAdmin(admin.ModelAdmin):
     list_display = ['skill', 'gambar_tag',  'created_at', 'deleted_at_display', 'status']
     search_fields = ['skill']
     list_filter = ['created_at']
-    ordering = ['skill', 'created_at']
+    # ordering = ['skill', 'created_at']
     fields = ['skill', 'gambar', 'gambar_tag']
     readonly_fields = ['gambar_tag']
-    list_per_page = 10
+    # list_per_page = 10
 
     def deleted_at_display(self, obj):
         return obj.deleted_at or "-"
@@ -149,10 +149,10 @@ class SosialMediaAdmin(admin.ModelAdmin):
     list_display = ['sosial_media', 'link', 'gambar_tag', 'created_at', 'deleted_at_display', 'status']
     search_fields = ['sosial_media', 'link']
     list_filter = ['created_at']
-    ordering = ['sosial_media', 'link', 'created_at']
+    # ordering = ['sosial_media', 'link', 'created_at']
     fields = ['sosial_media', 'link', 'gambar_tag']
     readonly_fields = ['gambar_tag']
-    list_per_page = 10
+    # list_per_page = 10
 
     def deleted_at_display(self, obj):
         return obj.deleted_at or "-"
@@ -171,11 +171,11 @@ class ProfilAdmin(admin.ModelAdmin):
     list_display = ['nama', 'gambar_tag', 'jenis_kelamin', 'tanggal_lahir', 'alamat', 'email', 'no_hp', 'created_at', 'deleted_at_display', 'status']
     search_fields = ['nama', 'jenis_kelamin__nama', 'tanggal_lahir', 'alamat', 'email', 'no_hp', 'deskripsi']
     list_filter = ['created_at']
-    ordering = ['nama']
+    # ordering = ['nama']
     fields = ['nama', 'jenis_kelamin', 'tanggal_lahir', 'alamat', 'email', 'no_hp', 'deskripsi', 'gambar', 'gambar_preview']
     readonly_fields = ['gambar_preview']  # agar tampil preview saat edit
 
-    list_per_page = 10
+    # list_per_page = 10
 
     def deleted_at_display(self, obj):
         return obj.deleted_at or "-"
