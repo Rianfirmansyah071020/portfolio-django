@@ -2,8 +2,12 @@ from django.db import models
 from numpy import delete
 from django.utils import timezone
 
+
 # Create your models here.
 class JenisKelamin(models.Model):
+    site_header = "Panel Admin Web"
+    site_title = "Admin Web"
+    index_title = "Selamat Datang di Panel Admin"
     jenis_kelamin = models.CharField(max_length=50)
     created_at = models.DateTimeField(auto_now_add=True)  # Diisi saat pertama kali dibuat
     updated_at = models.DateTimeField(auto_now=True)      # Diisi setiap kali di-update
@@ -46,7 +50,7 @@ class Pendidikan(models.Model):
 class Pengalaman(models.Model):
     pengalaman = models.CharField(max_length=50)
     tanggal_mulai = models.DateField(null=True)
-    tanggal_selesai = models.DateField(null=True)
+    tanggal_selesai = models.DateField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)  # Diisi saat pertama kali dibuat
     updated_at = models.DateTimeField(auto_now=True)      # Diisi setiap kali di-update
     deleted_at = models.DateTimeField(null=True, blank=True)  # Diisi hanya saat soft delete
