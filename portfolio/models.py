@@ -82,7 +82,8 @@ class Skill(models.Model):
 
 class Project(models.Model):
     project = models.CharField(max_length=50)
-    deskripsi = models.TextField(null=True, blank=True)
+    # deskripsi = models.TextField(null=True, blank=True)
+    deskripsi = RichTextField()
     link = models.URLField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)  # Diisi saat pertama kali dibuat
     updated_at = models.DateTimeField(auto_now=True)      # Diisi setiap kali di-update
