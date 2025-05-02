@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'portfolio', # jika ingin tampilan modern
     'ckeditor',
+    "django_select2",
     ]
 
 

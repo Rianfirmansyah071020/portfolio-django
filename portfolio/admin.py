@@ -168,6 +168,7 @@ class SosialMediaAdmin(admin.ModelAdmin):
     gambar_tag.short_description = 'Gambar'
 
 class ProfilAdmin(admin.ModelAdmin):
+
     list_display = ['nama', 'gambar_tag', 'jenis_kelamin', 'tanggal_lahir', 'alamat', 'email', 'no_hp', 'created_at', 'deleted_at_display', 'status']
     search_fields = ['nama', 'jenis_kelamin__nama', 'tanggal_lahir', 'alamat', 'email', 'no_hp', 'deskripsi']
     list_filter = ['created_at']
