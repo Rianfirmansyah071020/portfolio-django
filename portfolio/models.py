@@ -77,11 +77,12 @@ class Skill(models.Model):
         self.save()
 
 
+
+
 class Project(models.Model):
     project = models.CharField(max_length=50)
-    deskripsi = models.TextField()
-    gambar = models.ImageField(upload_to='media/images/', null=True)
-    link = models.URLField()
+    deskripsi = models.TextField(null=True, blank=True)
+    link = models.URLField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)  # Diisi saat pertama kali dibuat
     updated_at = models.DateTimeField(auto_now=True)      # Diisi setiap kali di-update
     deleted_at = models.DateTimeField(null=True, blank=True)  # Diisi hanya saat soft delete
@@ -92,6 +93,14 @@ class Project(models.Model):
     def delete(self, using=None, keep_parents=False):
         self.deleted_at = timezone.now()
         self.save()
+
+class ProjectImage(models.Model):
+    project = models.ForeignKey(Project, related_name='images', on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='media/project_images/')
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Gambar {self.project.project}"
 
 class SosialMedia(models.Model):
     sosial_media = models.CharField(max_length=50)
