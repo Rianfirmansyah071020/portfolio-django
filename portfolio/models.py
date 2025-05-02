@@ -127,7 +127,12 @@ class SosialMedia(models.Model):
 class Profil(models.Model):
     nama = models.CharField(max_length=50)
     jenis_kelamin = models.ForeignKey(JenisKelamin, on_delete=models.CASCADE)
-    gambar = models.ImageField(upload_to='media/images/', null=True)
+    tanggal_lahir = models.DateField(null=True)
+    alamat = models.TextField(null=True, blank=True)
+    email = models.EmailField(null=True, blank=True)
+    no_hp = models.CharField(max_length=15, null=True, blank=True)
+    deskripsi = models.TextField(null=True, blank=True)
+    gambar = models.ImageField(upload_to='media/images/')
     created_at = models.DateTimeField(auto_now_add=True)  # Diisi saat pertama kali dibuat
     updated_at = models.DateTimeField(auto_now=True)      # Diisi setiap kali di-update
     deleted_at = models.DateTimeField(null=True, blank=True)  # Diisi hanya saat soft delete

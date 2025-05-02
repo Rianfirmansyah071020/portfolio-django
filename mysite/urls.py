@@ -18,10 +18,12 @@ from django.contrib import admin
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
+from portfolio import views
 from portfolio.admin import admin_site  # import your custom admin site
 
 urlpatterns = [
       path('admin/', admin_site.urls),  # Use custom admin site
+      path('export-pdf-skills/', views.export_skills_pdf, name='export_pdf_skills'),
 ]
 
 # Tambahkan ini hanya saat DEBUG = True

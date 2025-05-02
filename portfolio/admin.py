@@ -6,7 +6,7 @@ from django.contrib.auth.admin import UserAdmin, GroupAdmin
 from django.utils.safestring import mark_safe
 
 
-from portfolio.models import Hobi, JenisKelamin, Pengalaman, Project, Pendidikan, Skill, SosialMedia, ProjectImage
+from portfolio.models import Hobi, JenisKelamin, Pengalaman, Project, Pendidikan, Skill, SosialMedia, ProjectImage, Profil
 
 # Custom AdminSite
 class MyAdminSite(AdminSite):
@@ -115,6 +115,8 @@ class PendidikanAdmin(admin.ModelAdmin):
         return "Deleted" if obj.deleted_at else "Active"
 
 class SkillAdmin(admin.ModelAdmin):
+    change_list_template = 'admin/portfolio/skill/change_list.html'
+
     list_display = ['skill', 'gambar_tag',  'created_at', 'deleted_at_display', 'status']
     search_fields = ['skill']
     list_filter = ['created_at']
@@ -142,6 +144,7 @@ class SkillAdmin(admin.ModelAdmin):
     gambar_tag.short_description = 'Gambar'
 
 
+
 class SosialMediaAdmin(admin.ModelAdmin):
     list_display = ['sosial_media', 'link', 'gambar_tag', 'created_at', 'deleted_at_display', 'status']
     search_fields = ['sosial_media', 'link']
@@ -164,6 +167,38 @@ class SosialMediaAdmin(admin.ModelAdmin):
         return "-"
     gambar_tag.short_description = 'Gambar'
 
+class ProfilAdmin(admin.ModelAdmin):
+    list_display = ['nama', 'gambar_tag', 'jenis_kelamin', 'tanggal_lahir', 'alamat', 'email', 'no_hp', 'deskripsi', 'created_at', 'deleted_at_display', 'status']
+    search_fields = ['nama', 'jenis_kelamin__nama', 'tanggal_lahir', 'alamat', 'email', 'no_hp', 'deskripsi']
+    list_filter = ['created_at']
+    ordering = ['nama']
+    fields = ['nama', 'jenis_kelamin', 'tanggal_lahir', 'alamat', 'email', 'no_hp', 'deskripsi', 'gambar', 'gambar_preview']
+    readonly_fields = ['gambar_preview']  # agar tampil preview saat edit
+
+    list_per_page = 10
+
+    def deleted_at_display(self, obj):
+        return obj.deleted_at or "-"
+    deleted_at_display.short_description = 'Deleted At'
+
+    def status(self, obj):
+        return "Deleted" if obj.deleted_at else "Active"
+
+    def gambar_tag(self, obj):
+        if obj.gambar:
+            return format_html('<img src="{}" width="40" height="auto" />', obj.gambar.url)
+        return "-"
+    gambar_tag.short_description = 'Gambar'
+
+    def gambar_preview(self, obj):
+        if obj.gambar:
+            return format_html('<img src="{}" width="100" height="auto" />', obj.gambar.url)
+        return "No image"
+    gambar_preview.short_description = 'Preview Gambar'
+
+
+
+
 
 
 
@@ -177,3 +212,4 @@ admin_site.register(User, UserAdmin)
 admin_site.register(Group, GroupAdmin)
 admin_site.register(Skill, SkillAdmin)
 admin_site.register(SosialMedia, SosialMediaAdmin)
+admin_site.register(Profil, ProfilAdmin)
