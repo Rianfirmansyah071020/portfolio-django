@@ -119,9 +119,9 @@ class SkillAdmin(admin.ModelAdmin):
     search_fields = ['skill']
     list_filter = ['created_at']
     ordering = ['skill', 'created_at']
-    fields = ['skill', 'gambar']
+    fields = ['skill', 'gambar', 'gambar_tag']
+    readonly_fields = ['gambar_tag']
     list_per_page = 10
-
 
     def deleted_at_display(self, obj):
         return obj.deleted_at or "-"
@@ -132,7 +132,12 @@ class SkillAdmin(admin.ModelAdmin):
 
     def gambar_tag(self, obj):
         if obj.gambar:
-            return format_html('<a href="{}" target="_blank"><img src="{}" width="40" style="border-radius: 50%; border: 3px solid blue;" height="auto" /></a>', obj.gambar.url, obj.gambar.url) # format_html('<img src="{}" width="100" height="auto" />', obj.gambar.url)
+            return format_html(
+                '<a href="{}" target="_blank">'
+                '<img src="{}" width="50" style=" border: 3px solid blue;" height="auto" />'
+                '</a>',
+                obj.gambar.url, obj.gambar.url
+            )
         return "-"
     gambar_tag.short_description = 'Gambar'
 
