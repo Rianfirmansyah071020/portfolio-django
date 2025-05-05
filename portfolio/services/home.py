@@ -8,19 +8,37 @@ def index(request):
     return render(request, 'portfolio/home/index.html')
 
 def profil(request):
-    dataProfil = Profil.objects.all()
+    data_profil = Profil.objects.first()
 
     try:
-        return JsonResponse({
-        'data': list(dataProfil.values()),
-        'status': 200,
-        'message': 'Success',
-        'error': False
-        })
-    except:
+        if data_profil:
             return JsonResponse({
-            'data': [],
-            'status': 200,
-            'message': 'Success',
-            'error': False
+                'data': {
+                    'id': data_profil.id,
+                    'nama': data_profil.nama,  # contoh field, sesuaikan dengan modelmu
+                    'tanggal_lahir': data_profil.tanggal_lahir.isoformat() if data_profil.tanggal_lahir else None,
+                    'alamat': data_profil.alamat,
+                    'email': data_profil.email,
+                    'no_hp': data_profil.no_hp,
+                    'deskripsi': data_profil.deskripsi,
+                    'gambar': data_profil.gambar.url if data_profil.gambar else None
+                    # tambahkan field lain jika perlu
+                },
+                'status': 200,
+                'message': 'Success',
+                'error': False
+            })
+        else:
+            return JsonResponse({
+                'data': {},
+                'status': 404,
+                'message': 'Data not found',
+                'error': True
+            })
+    except Exception as e:
+        return JsonResponse({
+            'data': {},
+            'status': 500,
+            'message': f'Error: {str(e)}',
+            'error': True
         })
