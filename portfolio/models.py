@@ -34,6 +34,19 @@ class Hobi(models.Model):
         self.deleted_at = timezone.now()
         self.save()
 
+class Profesi(models.Model):
+    profesi = models.CharField(max_length=50)
+    created_at = models.DateTimeField(auto_now_add=True)  # Diisi saat pertama kali dibuat
+    updated_at = models.DateTimeField(auto_now=True)      # Diisi setiap kali di-update
+    deleted_at = models.DateTimeField(null=True, blank=True)  # Diisi hanya saat soft delete
+
+    def __str__(self):
+        return self.profesi
+
+    def delete(self, using=None, keep_parents=False):
+        self.deleted_at = timezone.now()
+        self.save()
+
 class Pendidikan(models.Model):
     pendidikan = models.CharField(max_length=50)
     tahun_lulus = models.IntegerField()

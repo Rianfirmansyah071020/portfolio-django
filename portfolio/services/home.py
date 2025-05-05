@@ -1,7 +1,7 @@
 from django.http import JsonResponse
 from django.shortcuts import render
 
-from portfolio.models import Profil
+from portfolio.models import Profesi, Profil
 
 
 def index(request):
@@ -24,6 +24,33 @@ def profil(request):
                     'gambar': data_profil.gambar.url if data_profil.gambar else None
                     # tambahkan field lain jika perlu
                 },
+                'status': 200,
+                'message': 'Success',
+                'error': False
+            })
+        else:
+            return JsonResponse({
+                'data': {},
+                'status': 404,
+                'message': 'Data not found',
+                'error': True
+            })
+    except Exception as e:
+        return JsonResponse({
+            'data': {},
+            'status': 500,
+            'message': f'Error: {str(e)}',
+            'error': True
+        })
+
+
+def profesi(request):
+    data_profesi = Profesi.objects.all()
+
+    try:
+        if data_profesi:
+            return JsonResponse({
+                'data': data_profesi,
                 'status': 200,
                 'message': 'Success',
                 'error': False

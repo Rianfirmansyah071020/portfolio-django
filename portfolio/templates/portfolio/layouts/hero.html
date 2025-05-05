@@ -7,7 +7,7 @@
       <div class="row justify-content-center">
         <div class="col-lg-9">
           <h2 class="sitename"></h2>
-          <p>I'm <span class="typed" data-typed-items="Designer, Developer, Freelancer, Photographer">Designer</span><span class="typed-cursor typed-cursor--blink" aria-hidden="true"></span></p>
+          <p>I'm <span class="typed" data-typed-items="Programmer, Web Developer, Mobile Developer, Desktop Developer">Programmer</span><span class="typed-cursor typed-cursor--blink" aria-hidden="true"></span></p>
           <div class="social-links">
             <a href="#"><i class="bi bi-twitter-x"></i></a>
             <a href="#"><i class="bi bi-facebook"></i></a>
@@ -33,18 +33,10 @@
         // Gunakan data setelah ter-load
         $('.sitename').text(profil.nama || 'Tanpa Nama');
 
-        // Jalankan fungsi lain jika perlu
-        initApp();
       }).fail(function(xhr, status, error) {
         console.error("Gagal memuat profil:", error);
       });
     });
 
-    function initApp() {
-      // Gunakan data profil di sini
-      console.log("Nama:", profil.nama);
-      // Misal manipulasi elemen lain:
-      // $('#email').text(profil.email);
-    }
   </script>
   {% endblock %}

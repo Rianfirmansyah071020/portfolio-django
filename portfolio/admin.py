@@ -6,7 +6,7 @@ from django.contrib.auth.admin import UserAdmin, GroupAdmin
 from django.utils.safestring import mark_safe
 
 
-from portfolio.models import Hobi, JenisKelamin, Pengalaman, Project, Pendidikan, Skill, SosialMedia, ProjectImage, Profil
+from portfolio.models import Hobi, JenisKelamin, Pengalaman, Project, Pendidikan, Skill, SosialMedia, ProjectImage, Profil, Profesi
 
 # Custom AdminSite
 class MyAdminSite(AdminSite):
@@ -25,6 +25,21 @@ class HobiAdmin(admin.ModelAdmin):
     list_filter = ['created_at']
     # ordering = ['hobi', 'created_at', 'deleted_at']
     fields = ['hobi']
+    # list_per_page = 10
+
+    def deleted_at_display(self, obj):
+        return obj.deleted_at or "-"
+    deleted_at_display.short_description = 'Deleted At'
+
+    def status(self, obj):
+        return "Deleted" if obj.deleted_at else "Active"
+
+class ProfesiAdmin(admin.ModelAdmin):
+    list_display = ['profesi', 'created_at', 'deleted_at_display', 'status']
+    search_fields = ['profesi']
+    list_filter = ['created_at']
+    # ordering = ['profesi', 'created_at', 'deleted_at']
+    fields = ['profesi']
     # list_per_page = 10
 
     def deleted_at_display(self, obj):
@@ -214,3 +229,4 @@ admin_site.register(Group, GroupAdmin)
 admin_site.register(Skill, SkillAdmin)
 admin_site.register(SosialMedia, SosialMediaAdmin)
 admin_site.register(Profil, ProfilAdmin)
+admin_site.register(Profesi, ProfesiAdmin)

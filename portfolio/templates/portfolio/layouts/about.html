@@ -4,14 +4,14 @@
     <!-- Section Title -->
     <div class="container section-title" data-aos="fade-up">
       <h2>About</h2>
-      <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+      <p class="deskripsi-profil">Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
     </div><!-- End Section Title -->
 
     <div class="container" data-aos="fade-up" data-aos-delay="100">
 
       <div class="row gy-4 justify-content-center">
         <div class="col-lg-4">
-          <img src="{% static 'portfolio/img/profile-img.jpg' %}" class="img-fluid" alt="">
+          <img src="#" class="img-fluid img-profil" alt="">
         </div>
         <div class="col-lg-8 content">
           <h2>UI/UX Designer &amp; Web Developer.</h2>
@@ -47,3 +47,27 @@
     </div>
 
   </section>
+
+  {% block script %}
+  <script src="{% static 'portfolio/js/jquery.js' %}"></script>
+  <script>
+    // Variabel global
+
+
+    $(function() {
+      // Ambil data profil sekali saja
+      $.getJSON("{% url 'profil_api_url' %}", function(response) {
+        profil = response.data || {};
+
+        // Gunakan data setelah ter-load
+        $('.deskripsi-profil').html(profil.deskripsi);
+        $('.img-profil').attr('src', profil.gambar);
+
+      }).fail(function(xhr, status, error) {
+        console.error("Gagal memuat profil:", error);
+      });
+    });
+
+
+  </script>
+  {% endblock %}
