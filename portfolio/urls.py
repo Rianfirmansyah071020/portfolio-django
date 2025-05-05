@@ -23,6 +23,7 @@ from portfolio.services import home
 
 urlpatterns = [
     path('', home.index,  name='home'),
+    path('profil', home.profil, name='profil'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
