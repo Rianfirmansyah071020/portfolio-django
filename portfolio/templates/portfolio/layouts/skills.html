@@ -1,3 +1,4 @@
+{% load static %}
 <section id="skills" class="skills section">
 
     <!-- Section Title -->
@@ -65,3 +66,47 @@
     </div>
 
   </section>
+
+
+  {% block script %}
+  <script src="{% static 'portfolio/js/jquery.js' %}"></script>
+  <script>
+    // Variabel global
+
+
+    $(function () {
+      $.getJSON("{% url 'skill_api_url' %}", function (response) {
+        const skills = response.data || [];
+
+        // Kosongkan elemen kolom sebelum isi ulang
+        const leftCol = $('.skills-content .col-lg-6').first().empty();
+        const rightCol = $('.skills-content .col-lg-6').last().empty();
+
+        skills.forEach(function (skill, index) {
+          const skillElement = `
+            <div class="progress">
+              <span class="skill"><span>${skill.skill}</span> <i class="val">${skill.presentase}%</i></span>
+              <div class="progress-bar-wrap">
+                <div class="progress-bar" role="progressbar" aria-valuenow="${skill.presentase}" aria-valuemin="0" aria-valuemax="100" style="width: ${skill.presentase}%"></div>
+              </div>
+            </div>
+          `;
+
+          // Bagi dua ke dalam kolom kiri dan kanan
+          if (index % 2 === 0) {
+            leftCol.append(skillElement);
+          } else {
+            rightCol.append(skillElement);
+          }
+        });
+
+      }).fail(function (xhr, status, error) {
+        console.error("Gagal memuat data skill:", error);
+      });
+    });
+
+
+
+  </script>
+  {% endblock %}
+

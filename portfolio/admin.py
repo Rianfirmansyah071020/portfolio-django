@@ -132,11 +132,11 @@ class PendidikanAdmin(admin.ModelAdmin):
 class SkillAdmin(admin.ModelAdmin):
     change_list_template = 'admin/portfolio/skill/change_list.html'
 
-    list_display = ['skill', 'gambar_tag',  'created_at', 'deleted_at_display', 'status']
+    list_display = ['skill', 'presentase', 'gambar_tag',  'created_at', 'deleted_at_display', 'status']
     search_fields = ['skill']
     list_filter = ['created_at']
     # ordering = ['skill', 'created_at']
-    fields = ['skill', 'gambar', 'gambar_tag']
+    fields = ['skill', 'presentase', 'gambar', 'gambar_tag']
     readonly_fields = ['gambar_tag']
     # list_per_page = 10
 
