@@ -8,21 +8,21 @@ def index(request):
     return render(request, 'portfolio/home/index.html')
 
 def profil(request):
-    data_profil = Profil.objects.filter(deleted_at__isnull=True).first()
-
     try:
+        data_profil = Profil.objects.select_related('jenis_kelamin').filter(deleted_at__isnull=True).first()
+
         if data_profil:
             return JsonResponse({
                 'data': {
                     'id': data_profil.id,
-                    'nama': data_profil.nama,  # contoh field, sesuaikan dengan modelmu
+                    'nama': data_profil.nama,
                     'tanggal_lahir': data_profil.tanggal_lahir.isoformat() if data_profil.tanggal_lahir else None,
+                    'jenis_kelamin': data_profil.jenis_kelamin.jenis_kelamin if data_profil.jenis_kelamin else None,
                     'alamat': data_profil.alamat,
                     'email': data_profil.email,
                     'no_hp': data_profil.no_hp,
                     'deskripsi': data_profil.deskripsi,
                     'gambar': data_profil.gambar.url if data_profil.gambar else None
-                    # tambahkan field lain jika perlu
                 },
                 'status': 200,
                 'message': 'Success',

@@ -55,6 +55,8 @@
         // Hapus konten sebelumnya
         $(".typed").text("");
 
+        $(".profesilist").text(profesiList.join(", "));
+
         // Inisialisasi dengan default options
         new Typed(".typed", {
           strings: profesiList,
