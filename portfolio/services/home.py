@@ -8,7 +8,7 @@ def index(request):
     return render(request, 'portfolio/home/index.html')
 
 def profil(request):
-    data_profil = Profil.objects.first()
+    data_profil = Profil.objects.filter(deleted_at__isnull=True).first()
 
     try:
         if data_profil:
@@ -45,7 +45,7 @@ def profil(request):
 
 
 def profesi(request):
-    data_profesi =  data_profesi = list(Profesi.objects.all().values())
+    data_profesi = list(Profesi.objects.filter(deleted_at__isnull=True).values())
 
     try:
         if data_profesi:
