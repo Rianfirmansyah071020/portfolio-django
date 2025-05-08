@@ -1,7 +1,7 @@
 from django.http import JsonResponse
 from django.shortcuts import render
 
-from portfolio.models import Profesi, Profil, Skill
+from portfolio.models import Pendidikan, Pengalaman, Profesi, Profil, Skill
 
 
 def index(request):
@@ -79,6 +79,61 @@ def skill(request):
         if data_skill:
             return JsonResponse({
                 'data': data_skill,
+                'status': 200,
+                'message': 'Success',
+                'error': False
+            })
+        else:
+            return JsonResponse({
+                'data': {},
+                'status': 404,
+                'message': 'Data not found',
+                'error': True
+            })
+    except Exception as e:
+        return JsonResponse({
+            'data': {},
+            'status': 500,
+            'message': f'Error: {str(e)}',
+            'error': True
+        })
+
+
+def pendidikan(request):
+    data_pendidikan = list(Pendidikan.objects.filter(deleted_at__isnull=True).values())
+
+    try:
+        if data_pendidikan:
+            return JsonResponse({
+                'data': data_pendidikan,
+                'status': 200,
+                'message': 'Success',
+                'error': False
+            })
+        else:
+            return JsonResponse({
+                'data': {},
+                'status': 404,
+                'message': 'Data not found',
+                'error': True
+            })
+    except Exception as e:
+        return JsonResponse({
+            'data': {},
+            'status': 500,
+            'message': f'Error: {str(e)}',
+            'error': True
+        })
+
+
+
+def pengalaman(request):
+    data_pengalaman = list(Pengalaman.objects.filter(deleted_at__isnull=True).values())
+
+    try:
+        if data_pengalaman:
+            return JsonResponse({
+                'data': data_pengalaman,
                 'status': 200,
                 'message': 'Success',
                 'error': False
