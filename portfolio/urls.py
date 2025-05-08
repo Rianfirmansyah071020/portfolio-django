@@ -24,6 +24,7 @@ from portfolio.services import home
 urlpatterns = [
     path('', home.index,  name='home'),
     path('profil_api', home.profil, name='profil_api_url'),
+    path('profesi_api', home.profesi, name='profesi_api_url'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

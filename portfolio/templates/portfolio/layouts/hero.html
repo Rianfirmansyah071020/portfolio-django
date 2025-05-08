@@ -7,7 +7,7 @@
       <div class="row justify-content-center">
         <div class="col-lg-9">
           <h2 class="sitename"></h2>
-          <p>I'm <span class="typed" data-typed-items="Programmer, Web Developer, Mobile Developer, Desktop Developer">Programmer</span><span class="typed-cursor typed-cursor--blink" aria-hidden="true"></span></p>
+          <p>I'm <span class="typed" data-typed-items=""></span><span class="typed-cursor typed-cursor--blink" aria-hidden="true"></span></p>
           <div class="social-links">
             <a href="#"><i class="bi bi-twitter-x"></i></a>
             <a href="#"><i class="bi bi-facebook"></i></a>
@@ -24,6 +24,7 @@
   <script>
     // Variabel global
     let profil = {};
+    let profesi = {};
 
     $(function() {
       // Ambil data profil sekali saja
@@ -37,6 +38,44 @@
         console.error("Gagal memuat profil:", error);
       });
     });
+
+    $(function () {
+      $.getJSON("{% url 'profesi_api_url' %}", function (response) {
+        let profesiList = [];
+
+        if (response.data && response.data.length > 0) {
+          profesiList = response.data.map(item => item.profesi);
+        }
+
+        console.log(profesiList); // Debug: lihat data profesi yang dimuat
+
+        // Update atribut data-typed-items (opsional, hanya jika ingin disimpan di DOM)
+        $(".typed").attr("data-typed-items", profesiList.join(", "));
+
+        // Hapus konten sebelumnya
+        $(".typed").text("");
+
+        // Inisialisasi dengan default options
+        new Typed(".typed", {
+          strings: profesiList,
+          typeSpeed: 50,         // Kecepatan mengetik (semakin kecil, semakin cepat)
+          backSpeed: 30,         // Kecepatan menghapus
+          backDelay: 1500,       // Jeda sebelum mulai menghapus
+          startDelay: 300,       // Delay sebelum mengetik pertama kali
+          smartBackspace: true,  // Hanya menghapus teks yang berbeda
+          loop: true,            // Aktifkan pengulangan
+          showCursor: true,      // Tampilkan kursor
+          cursorChar: "|",       // Karakter kursor
+          autoInsertCss: true    // Sisipkan CSS secara otomatis
+        });
+
+      }).fail(function (xhr, status, error) {
+        console.error("Gagal memuat profesi:", error);
+      });
+    });
+
+
+
 
   </script>
   {% endblock %}

@@ -45,7 +45,7 @@ def profil(request):
 
 
 def profesi(request):
-    data_profesi = Profesi.objects.all()
+    data_profesi =  data_profesi = list(Profesi.objects.all().values())
 
     try:
         if data_profesi:
