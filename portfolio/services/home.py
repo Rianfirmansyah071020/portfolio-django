@@ -1,7 +1,7 @@
 from django.http import JsonResponse
 from django.shortcuts import render
 
-from portfolio.models import Pendidikan, Pengalaman, Profesi, Profil, Skill
+from portfolio.models import Pendidikan, Pengalaman, Profesi, Profil, Project, Skill
 
 
 def index(request):
@@ -148,6 +148,55 @@ def pengalaman(request):
     except Exception as e:
         return JsonResponse({
             'data': {},
+            'status': 500,
+            'message': f'Error: {str(e)}',
+            'error': True
+        })
+
+
+def project(request):
+    try:
+        projects = Project.objects.prefetch_related('images').filter(deleted_at__isnull=True)
+
+        data_project = []
+        for proj in projects:
+            image_data = [
+                {
+                    'id': img.id,
+                    'image_url': img.image.url,
+                    'uploaded_at': img.uploaded_at
+                }
+                for img in proj.images.all()
+            ]
+
+            data_project.append({
+                'id': proj.id,
+                'project': proj.project,
+                'deskripsi': proj.deskripsi,
+                'link': proj.link,
+                'created_at': proj.created_at,
+                'updated_at': proj.updated_at,
+                'images': image_data
+            })
+
+        if data_project:
+            return JsonResponse({
+                'data': data_project,
+                'status': 200,
+                'message': 'Success',
+                'error': False
+            })
+        else:
+            return JsonResponse({
+                'data': [],
+                'status': 404,
+                'message': 'Data not found',
+                'error': True
+            })
+
+    except Exception as e:
+        return JsonResponse({
+            'data': [],
             'status': 500,
             'message': f'Error: {str(e)}',
             'error': True

@@ -47,8 +47,6 @@
           profesiList = response.data.map(item => item.profesi);
         }
 
-        console.log(profesiList); // Debug: lihat data profesi yang dimuat
-
         // Update atribut data-typed-items (opsional, hanya jika ingin disimpan di DOM)
         $(".typed").attr("data-typed-items", profesiList.join(", "));
 

@@ -6,9 +6,6 @@ from ckeditor.fields import RichTextField
 
 # Create your models here.
 class JenisKelamin(models.Model):
-    site_header = "Panel Admin Web"
-    site_title = "Admin Web"
-    index_title = "Selamat Datang di Panel Admin"
     jenis_kelamin = models.CharField(max_length=50)
     created_at = models.DateTimeField(auto_now_add=True)  # Diisi saat pertama kali dibuat
     updated_at = models.DateTimeField(auto_now=True)      # Diisi setiap kali di-update

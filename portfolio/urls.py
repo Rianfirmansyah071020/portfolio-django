@@ -28,6 +28,7 @@ urlpatterns = [
     path('skill_api', home.skill, name='skill_api_url'),
     path('pendidikan_api', home.pendidikan, name='pendidikan_api_url'),
     path('pengalaman_api', home.pengalaman, name='pengalaman_api_url'),
+    path('project_api', home.project, name='project_api_url'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
